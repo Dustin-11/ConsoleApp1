@@ -7,12 +7,16 @@ public class ConsoleApp1
     {
         // Greeting and Direct Input
         Console.WriteLine("Welcome to the C# ATM!");
-        Console.WriteLine("Which name do you wish to use?");
+       /* Console.WriteLine("Which name do you wish to use?");
         Console.WriteLine("Jeff, Bill, Sally, or Catherine");
-        Console.WriteLine("Please type your answer");
-        string name = Console.ReadLine();
+        Console.WriteLine("Please type your answer"); */
+       // string name = Console.ReadLine();
         User client = new User();
-        switch (name)
+        Console.WriteLine("Enter UserName");
+        string userName = Console.ReadLine();
+        client.Name = userName;
+        Console.WriteLine("Welome " + userName + " what action would you like to perform today?");
+      /*  switch (name)
         {
             case "Jeff":
                 client.Name = "Jeff";
@@ -30,20 +34,65 @@ public class ConsoleApp1
             default:
                 Console.WriteLine("Invalid value entered");
                 break;
-        }
-        string action = Console.ReadLine();
+        } */
         Console.WriteLine("Choose an action:");
         Console.WriteLine("Check Balance");
-        Console.WriteLine("Make a Deposit");
+        Console.WriteLine("Make a deposit");
         Console.WriteLine("Make a withdrawal");
+        string action = Console.ReadLine();
 
+        BankAccount bankAccount = new BankAccount();
         switch (action)
         {
             case "Check Balance":
-                Console.WriteLine(client.Balance);
+                bankAccount.checkBalance();
                 break;
-
-
+            case "Make a deposit":
+                Console.WriteLine("Enter how much you would like to deposit?");
+                int inputDeposit = Convert.ToInt32(Console.Read());
+                bankAccount.deposit(inputDeposit);
+                break;
+            case "Make a withdrawal":
+                Console.WriteLine("Enter how much you would like to withdraw?");
+                int inputWithdrawal = Convert.ToInt32(Console.Read());
+                bankAccount.withdrawal(inputWithdrawal);
+                break;
+        }
+        bool decision = true;
+        while (decision == true)
+        {
+            Console.WriteLine("Would you like to perform another action?");
+            string response = Console.ReadLine();
+            if (response == "yes" || response == "Yes" || response == "YES")
+            {
+                decision = true;
+                Console.WriteLine("Choose an action:");
+                Console.WriteLine("Check Balance");
+                Console.WriteLine("Make a deposit");
+                Console.WriteLine("Make a withdrawal");
+                action = Console.ReadLine();
+                switch (action)
+                {
+                    case "Check Balance":
+                        bankAccount.checkBalance();
+                        break;
+                    case "Make a deposit":
+                        Console.WriteLine("Enter how much you would like to deposit?");
+                        int inputDeposit = Convert.ToInt32(Console.Read());
+                        bankAccount.deposit(inputDeposit);
+                        break;
+                    case "Make a withdrawal":
+                        Console.WriteLine("Enter how much you would like to withdraw?");
+                        int inputWithdrawal = Convert.ToInt32(Console.Read());
+                        bankAccount.withdrawal(inputWithdrawal);
+                        break;
+                    
+                }
+            }
+            else
+            {
+                decision = false;
+            }
         }
     }
     class User
@@ -59,7 +108,7 @@ public class ConsoleApp1
     }
     class BankAccount
     {
-        private double balance;
+        private double balance = 0;
         public double Balance
         {
             get { return balance; }
